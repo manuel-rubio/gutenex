@@ -10,8 +10,8 @@ defmodule Gutenex.PDF.Images do
   end
 
   # So named because `alias` is not something I want to redefine
-  def image_alias(%Image{uri: uri}=image) when not is_nil(uri) do
-    :crypto.md5(uri)
+  def image_alias(%Image{uri: uri}) when not is_nil(uri) do
+    :crypto.hash(:md5, uri)
     |> Base.encode16
   end
 
