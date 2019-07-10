@@ -5,8 +5,8 @@ defmodule Gutenex.Mixfile do
     [
       app: :gutenex,
       name: "Gutenex",
-      version: "0.2.0",
-      source_url: "https://github.com/SenecaSystems/gutenex",
+      version: "0.2.1",
+      source_url: "https://github.com/kamiro/gutenex",
       elixir: "~> 1.0",
       deps: deps(),
       description: description(),
@@ -35,8 +35,8 @@ defmodule Gutenex.Mixfile do
   defp package do
     [
       licenses: ["MIT"],
-      links: %{github: "https://github.com/SenecaSystems/gutenex"},
-      contributors: ["Chris Maddox"]
+      links: %{github: "https://github.com/kamiro/gutenex"},
+      contributors: ["Chris Maddox", "Gary Morrison"]
     ]
   end
 end
