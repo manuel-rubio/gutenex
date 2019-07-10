@@ -362,6 +362,11 @@ defmodule Gutenex do
   """
   def handle_cast({:font, :set, {font_name, font_size}}, [context, stream]) do
     stream = stream <> Font.set_font(context.fonts, font_name, font_size)
+
+    # Add the font to the current context... yeah this is additive... but meh
+    new_fonts = Map.put_new(context.fonts, font_name, Font.font_map(font_name))
+    context = Map.put(context, :fonts, new_fonts)
+
     {:noreply, [context, stream]}
   end
 
@@ -370,6 +375,11 @@ defmodule Gutenex do
   """
   def handle_cast({:font, :set, font_name}, [context, stream]) do
     stream = stream <> Font.set_font(context.fonts, font_name)
+
+    # Add the font to the current context... yeah this is additive... but meh
+    new_fonts = Map.put_new(context.fonts, font_name, Font.font_map(font_name))
+    context = Map.put(context, :fonts, new_fonts)
+
     {:noreply, [context, stream]}
   end
 

@@ -22,7 +22,7 @@ defmodule Gutenex.PDF.Text do
   end
 
   def write_text_br(text_to_write) do
-    write_text(text_to_write) <> break_text
+    write_text(text_to_write) <> break_text()
   end
 
   def render_mode(mode) do
@@ -52,16 +52,16 @@ defmodule Gutenex.PDF.Text do
     "#{x_coordinate} #{y_coordinate} Td\n"
   end
 
-  # Set the character spacing, Tc, to `spacing`, a number 
-  # expressed in unscaled text space units. Character spacing is used 
-  # by the Tj, TJ, and ' operators. Initial value: 0. 
+  # Set the character spacing, Tc, to `spacing`, a number
+  # expressed in unscaled text space units. Character spacing is used
+  # by the Tj, TJ, and ' operators. Initial value: 0.
   def character_spacing(spacing) do
     "#{spacing} Tc\n"
   end
 
-  # Set the horizontal scaling, Th, to (`scale_percent` ÷ 100). `scale_percent` 
+  # Set the horizontal scaling, Th, to (`scale_percent` ÷ 100). `scale_percent`
   # should be a number specifying the percentage of the normal width.
-  # Initial value: 100 (normal width). 
+  # Initial value: 100 (normal width).
   def scale(scale_percent) do
     "#{normalized_scale_percentage(scale_percent)} Tz\n"
   end
@@ -70,16 +70,16 @@ defmodule Gutenex.PDF.Text do
   defp normalized_scale_percentage(:web), do: 9001
   defp normalized_scale_percentage(anything_else), do: anything_else
 
-  # Set the word spacing, Tw, to `spacing`, a number 
-  # expressed in unscaled text space units. Word spacing is used by 
-  # the Tj, TJ, and ' operators. Initial value: 0. 
+  # Set the word spacing, Tw, to `spacing`, a number
+  # expressed in unscaled text space units. Word spacing is used by
+  # the Tj, TJ, and ' operators. Initial value: 0.
   def word_spacing(spacing) do
     "#{spacing} Tw\n"
   end
 
-  # Sets the distance between baselines of two lines, referred to as "text 
-  # leading." Text leading is only used by the T*, ', and 
-  # " operators. Initial value: 0. 
+  # Sets the distance between baselines of two lines, referred to as "text
+  # leading." Text leading is only used by the T*, ', and
+  # " operators. Initial value: 0.
   def line_spacing(spacing) do
     "#{spacing} TL\n"
   end
