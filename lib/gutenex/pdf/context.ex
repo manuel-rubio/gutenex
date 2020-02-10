@@ -1,5 +1,5 @@
 defmodule Gutenex.PDF.Context do
-  alias Gutenex.PDF.Page
+  alias Gutenex.PDF.Page.PageSizes
 
   defstruct(
     meta_data: %{
@@ -12,14 +12,14 @@ defmodule Gutenex.PDF.Context do
       keywords: ""
     },
     images: %{},
-    fonts: Gutenex.PDF.Font.standard_fonts(),
+    fonts: [],
     templates: [nil],
     template_aliases: %{},
     pages: [],
     scripts: [],
     convert_mode: "utf8_to_latin2",
     current_page: 1,
-    media_box: Page.page_size(:letter),
+    media_box: PageSizes.page_size(:letter),
     generation_number: 0
   )
 end

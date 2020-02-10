@@ -3,99 +3,29 @@ defmodule Gutenex.PDF.Font do
 
   @default_font_size 12
   @default_font "Helvetica"
-  @standard_fonts %{
-    "Times-Roman" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Times-Roman"}
-    },
-    "Times-Italic" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Times-Italic"}
-    },
-    "Times-Bold" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Times-Bold"}
-    },
-    "Times-BoldItalic" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Times-BoldItalic"}
-    },
-    "Helvetica" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Helvetica"}
-    },
-    "Helvetica-Oblique" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Helvetica-Oblique"}
-    },
-    "Helvetica-Bold" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Helvetica-Bold"}
-    },
-    "Helvetica-BoldOblique" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Helvetica-BoldOblique"}
-    },
-    "Courier" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Courier"}
-    },
-    "Courier-Oblique" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Courier-Oblique"}
-    },
-    "Courier-Bold" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Courier-Bold"}
-    },
-    "Courier-BoldOblique" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Courier-BoldOblique"}
-    },
-    "Symbol" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "Symbol"}
-    },
-    "ZapfDingbats" => %{
-      "Encoding" => {:name, "MacRomanEncoding"},
-      "Type" => {:name, "Font"},
-      "Subtype" => {:name, "Type1"},
-      "BaseFont" => {:name, "ZapfDingbats"}
-    }
-  }
+  @standard_fonts ["Times-Roman", "Times-Italic", "Times-Bold", "Times-BoldItalic",
+                    "Helvetica", "Helvetica-Oblique", "Helvetica-Bold", "Helvetica-BoldOblique",
+                    "Courier", "Courier-Oblique", "Courier-Bold", "Courier-BoldOblique",
+                    "Symbol",
+                    "ZapfDingbats"]
 
   def standard_fonts do
     @standard_fonts
+    |> Enum.map(fn x -> {x, font_map(x)} end)
+    |> Map.new
   end
 
   def default_font_size do
     @default_font_size
+  end
+
+  def font_map(font_name) do
+    %{
+      "Encoding" => {:name, "MacRomanEncoding"},
+      "Type" => {:name, "Font"},
+      "Subtype" => {:name, "Type1"},
+      "BaseFont" => {:name, font_name}
+    }
   end
 
   def set_font(%{} = fonts, font_name, font_size \\ @default_font_size) do
