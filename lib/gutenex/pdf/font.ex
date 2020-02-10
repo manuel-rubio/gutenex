@@ -3,16 +3,27 @@ defmodule Gutenex.PDF.Font do
 
   @default_font_size 12
   @default_font "Helvetica"
-  @standard_fonts ["Times-Roman", "Times-Italic", "Times-Bold", "Times-BoldItalic",
-                    "Helvetica", "Helvetica-Oblique", "Helvetica-Bold", "Helvetica-BoldOblique",
-                    "Courier", "Courier-Oblique", "Courier-Bold", "Courier-BoldOblique",
-                    "Symbol",
-                    "ZapfDingbats"]
+  @standard_fonts [
+    "Times-Roman",
+    "Times-Italic",
+    "Times-Bold",
+    "Times-BoldItalic",
+    "Helvetica",
+    "Helvetica-Oblique",
+    "Helvetica-Bold",
+    "Helvetica-BoldOblique",
+    "Courier",
+    "Courier-Oblique",
+    "Courier-Bold",
+    "Courier-BoldOblique",
+    "Symbol",
+    "ZapfDingbats"
+  ]
 
   def standard_fonts do
     @standard_fonts
     |> Enum.map(fn x -> {x, font_map(x)} end)
-    |> Map.new
+    |> Map.new()
   end
 
   def default_font_size do

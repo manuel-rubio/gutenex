@@ -12,7 +12,12 @@ defmodule Gutenex.Geometry.LineTest do
   end
 
   test "#lines returns a list of lines" do
-    lines = Line.lines([{{10, 20}, {30, 40}}, {{50, 60}, {70, 80}}, {{90, 100}, {110, 120}}])
+    lines =
+      Line.lines([
+        {{10, 20}, {30, 40}},
+        {{50, 60}, {70, 80}},
+        {{90, 100}, {110, 120}}
+      ])
 
     assert lines == [
              "10 20 m\n30 40 l S\n",

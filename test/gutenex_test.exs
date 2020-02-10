@@ -36,7 +36,8 @@ defmodule GutenexTest do
     Gutenex.append_to_stream(server, ", Kilgore Trout")
     Gutenex.append_to_stream(server, ", Roland Weary")
 
-    assert "Billy Pilgrim, Kilgore Trout, Roland Weary" == Gutenex.stream(server)
+    assert "Billy Pilgrim, Kilgore Trout, Roland Weary" ==
+             Gutenex.stream(server)
   end
 
   test "setting the current page", %{server: server} do
@@ -53,7 +54,10 @@ defmodule GutenexTest do
   @tag :integration
   test "integration!" do
     File.rm("./tmp/alpaca.pdf")
-    {alpaca_alias, alpaca_rendition} = Gutenex.PDF.Images.load("./test/support/images/alpaca.png")
+
+    {alpaca_alias, alpaca_rendition} =
+      Gutenex.PDF.Images.load("./test/support/images/alpaca.png")
+
     {:ok, pid} = Gutenex.start_link()
 
     Gutenex.add_image(pid, alpaca_alias, alpaca_rendition)

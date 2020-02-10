@@ -24,14 +24,16 @@ defmodule Gutenex.PDF.SerializationTest do
   end
 
   test "#serialize with an :obj" do
-    assert Serialization.serialize({{:obj, 1, 0}, true}) == "1 0 obj\n true \nendobj\n"
+    assert Serialization.serialize({{:obj, 1, 0}, true}) ==
+             "1 0 obj\n true \nendobj\n"
   end
 
   test "#serialize with a :date" do
     assert Serialization.serialize({:date, {{2014, 1, 31}, {15, 15, 00}}}) ==
              " (D:20140131151500) "
 
-    assert Serialization.serialize({:date, {1776, 7, 4}}) == " (D:17760704000000) "
+    assert Serialization.serialize({:date, {1776, 7, 4}}) ==
+             " (D:17760704000000) "
   end
 
   test "#serialize with a :name" do
@@ -39,13 +41,20 @@ defmodule Gutenex.PDF.SerializationTest do
   end
 
   test "#serialize with an :array" do
-    assert Serialization.serialize({:array, [1, {:string, "Two"}, 3.0, {:date, {1776, 7, 4}}]}) ==
+    assert Serialization.serialize(
+             {:array, [1, {:string, "Two"}, 3.0, {:date, {1776, 7, 4}}]}
+           ) ==
              " [1, (Two) ,3.00, (D:17760704000000) ] "
   end
 
   test "#serialize with a :dict using a map" do
     assert Serialization.serialize(
-             {:dict, %{"Key" => "Value", "Numbers" => {:array, [1, 2, 3]}, "Nope" => nil}}
+             {:dict,
+              %{
+                "Key" => "Value",
+                "Numbers" => {:array, [1, 2, 3]},
+                "Nope" => nil
+              }}
            ) == "<</Key (Value)/Numbers [1,2,3]>>"
   end
 
@@ -58,7 +67,8 @@ defmodule Gutenex.PDF.SerializationTest do
   end
 
   test "#serialize with a :hexstring" do
-    assert Serialization.serialize({:hexstring, "Yay Bubbles!"}) == " <59617920427562626C657321> "
+    assert Serialization.serialize({:hexstring, "Yay Bubbles!"}) ==
+             " <59617920427562626C657321> "
   end
 
   test "#serialize with a :stream with no options" do

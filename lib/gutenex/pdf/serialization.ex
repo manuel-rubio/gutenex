@@ -90,7 +90,9 @@ defmodule Gutenex.PDF.Serialization do
 
   def serialize({:stream, {:dict, options}, payload}) when is_binary(payload) do
     {options, payload} = prepare_stream(options, payload)
-    serialize({:dict, options}) <> "\n" <> Enum.join(["stream", payload, "endstream"], "\n")
+
+    serialize({:dict, options}) <>
+      "\n" <> Enum.join(["stream", payload, "endstream"], "\n")
   end
 
   def serialize({:stream, payload}) when is_binary(payload) do

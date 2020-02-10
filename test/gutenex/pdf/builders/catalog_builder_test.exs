@@ -12,7 +12,8 @@ defmodule Gutenex.PDF.Builders.CatalogBuilderTest do
       template_aliases: %{"Francis" => {:ptr, 22, 1}}
     }
 
-    {updated_render_context, _context} = CatalogBuilder.build({render_context, %Context{}})
+    {updated_render_context, _context} =
+      CatalogBuilder.build({render_context, %Context{}})
 
     assert updated_render_context.catalog_reference ==
              RenderContext.current_reference(render_context)
@@ -32,6 +33,7 @@ defmodule Gutenex.PDF.Builders.CatalogBuilderTest do
               }}
            }
 
-    assert updated_render_context.current_index == render_context.current_index + 1
+    assert updated_render_context.current_index ==
+             render_context.current_index + 1
   end
 end

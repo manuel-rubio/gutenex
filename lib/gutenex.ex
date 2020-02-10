@@ -31,7 +31,7 @@ defmodule Gutenex do
   Stop the server process
   """
   def stop(pid) do
-    GenServer.call(pid, :stop)
+    GenServer.stop(pid)
   end
 
   @doc """
@@ -199,11 +199,13 @@ defmodule Gutenex do
   ##      Geometry     ##
   #######################
 
-  def move_to(pid, point_x, point_y) when is_integer(point_x) and is_integer(point_y) do
+  def move_to(pid, point_x, point_y)
+      when is_integer(point_x) and is_integer(point_y) do
     move_to(pid, {point_x, point_y})
   end
 
-  def move_to(pid, {point_x, point_y} = point) when is_integer(point_x) and is_integer(point_y) do
+  def move_to(pid, {point_x, point_y} = point)
+      when is_integer(point_x) and is_integer(point_y) do
     GenServer.cast(pid, {:geometry, :move_to, point})
     pid
   end
@@ -211,13 +213,6 @@ defmodule Gutenex do
   #######################
   ##   Call handlers   ##
   #######################
-
-  @doc """
-  Handles stopping the server process
-  """
-  def handle_call(:stop, _from, state) do
-    {:stop, :normal, :ok, state}
-  end
 
   @doc """
   Returns the current context
@@ -311,7 +306,10 @@ defmodule Gutenex do
   @doc """
     Set the text position
   """
-  def handle_cast({:text, :position, {x_coordinate, y_coordinate}}, [context, stream]) do
+  def handle_cast({:text, :position, {x_coordinate, y_coordinate}}, [
+        context,
+        stream
+      ]) do
     stream = stream <> Text.text_position(x_coordinate, y_coordinate)
     {:noreply, [context, stream]}
   end
@@ -328,13 +326,25 @@ defmodule Gutenex do
   #            Templates              #
   #####################################
 
-  def handle_cast({:templates, :add, {template_alias, template_contents}}, [context, stream]) do
-    template_aliases = Map.put(context.template_aliases, template_alias, template_contents)
-    {:noreply, [%Gutenex.PDF.Context{template_aliases: template_aliases}, stream]}
+  def handle_cast({:templates, :add, {template_alias, template_contents}}, [
+        context,
+        stream
+      ]) do
+    template_aliases =
+      Map.put(context.template_aliases, template_alias, template_contents)
+
+    {:noreply,
+     [%Gutenex.PDF.Context{template_aliases: template_aliases}, stream]}
   end
 
   def handle_cast({:template, :set, {template_alias}}, [context, stream]) do
-    templates = List.replace_at(context.templates, context.current_page - 1, template_alias)
+    templates =
+      List.replace_at(
+        context.templates,
+        context.current_page - 1,
+        template_alias
+      )
+
     {:noreply, [%Gutenex.PDF.Context{context | templates: templates}, stream]}
   end
 

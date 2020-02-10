@@ -8,6 +8,8 @@ defmodule Gutenex.PDFTest do
     context = PDF.add_page(context, current_page_stream)
 
     assert context.current_page == 2, "It increments the current page"
-    assert List.first(context.pages) == current_page_stream, "It adds the content to the #pages"
+
+    assert List.first(context.pages) == current_page_stream,
+           "It adds the content to the #pages"
   end
 end

@@ -12,7 +12,10 @@ defmodule Gutenex.PDF.Builders.MetaDataBuilder do
     }
   end
 
-  defp add_meta_data_to_render_context(%RenderContext{} = render_context, %Context{} = context) do
+  defp add_meta_data_to_render_context(
+         %RenderContext{} = render_context,
+         %Context{} = context
+       ) do
     set_meta_data_reference(render_context)
     |> set_meta_data(context)
   end

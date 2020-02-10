@@ -8,7 +8,7 @@ defmodule Gutenex.Mixfile do
       description: "PDF Generation in Elixir",
       version: "0.2.1",
       source_url: "https://github.com/manuel-rubio/gutenex",
-      elixir: "~> 1.0",
+      elixir: "~> 1.9",
       deps: deps(),
       package: package()
     ]
@@ -22,8 +22,8 @@ defmodule Gutenex.Mixfile do
 
   defp deps do
     [
-      {:imagineer, "~> 0.3"},
-      {:ex_doc, "~> 0.19", only: :dev},
+      {:imagineer, "~> 0.3.3"},
+      {:ex_doc, "~> 0.21.3", only: :dev}
     ]
   end
 

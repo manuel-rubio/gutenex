@@ -23,8 +23,10 @@ defmodule Gutenex.PDF.Builders.PageBuilderTest do
     assert render_context.current_index == 5
 
     assert render_context.page_references == [
-             {:ptr, render_context.current_index - 3, render_context.generation_number},
-             {:ptr, render_context.current_index - 1, render_context.generation_number}
+             {:ptr, render_context.current_index - 3,
+              render_context.generation_number},
+             {:ptr, render_context.current_index - 1,
+              render_context.generation_number}
            ]
 
     [page_1_contents, page_1_summary, page_2_contents, page_2_summary] =

@@ -16,9 +16,11 @@ defmodule Gutenex.PDF.Builders.TemplateBuilderTest do
       generation_number: 0
     }
 
-    {updated_render_context, ^context} = TemplateBuilder.build({render_context, context})
+    {updated_render_context, ^context} =
+      TemplateBuilder.build({render_context, context})
 
-    assert updated_render_context.current_index == render_context.current_index + 1
+    assert updated_render_context.current_index ==
+             render_context.current_index + 1
 
     # It should add the alias
     assert updated_render_context.template_aliases ==
@@ -48,7 +50,10 @@ defmodule Gutenex.PDF.Builders.TemplateBuilderTest do
 
     assert template_contents == "Bubbles!"
     assert Map.get(template_dictionary, "Type") == "XObject"
-    assert Map.get(template_dictionary, "BBox") == {:array, Tuple.to_list(context.media_box)}
+
+    assert Map.get(template_dictionary, "BBox") ==
+             {:array, Tuple.to_list(context.media_box)}
+
     assert Map.get(template_dictionary, "SubType") == "Form"
   end
 end

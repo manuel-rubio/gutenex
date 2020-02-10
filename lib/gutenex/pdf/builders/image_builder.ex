@@ -15,7 +15,9 @@ defmodule Gutenex.PDF.Builders.ImageBuilder do
     }
   end
 
-  def add_images(%RenderContext{} = render_context, [{image_alias, current_image} | images_tail]) do
+  def add_images(%RenderContext{} = render_context, [
+        {image_alias, current_image} | images_tail
+      ]) do
     add_image(render_context, current_image, image_alias)
     |> add_images(images_tail)
   end
@@ -29,10 +31,14 @@ defmodule Gutenex.PDF.Builders.ImageBuilder do
 
   # Calculate the attributes, any additional objects, and add the image to the
   # list of images
-  defp add_image_object(%RenderContext{} = render_context, %Imagineer.Image.PNG{} = image) do
+  defp add_image_object(
+         %RenderContext{} = render_context,
+         %Imagineer.Image.PNG{} = image
+       ) do
     image_object = {
       RenderContext.current_object(render_context),
-      {:stream, image_attributes(image, extra_attributes(image)), image_stream_data(image)}
+      {:stream, image_attributes(image, extra_attributes(image)),
+       image_stream_data(image)}
     }
 
     %RenderContext{
@@ -63,7 +69,8 @@ defmodule Gutenex.PDF.Builders.ImageBuilder do
 
     %RenderContext{
       render_context
-      | image_aliases: Map.put(render_context.image_aliases, image_alias, image_reference)
+      | image_aliases:
+          Map.put(render_context.image_aliases, image_alias, image_reference)
     }
   end
 
@@ -81,7 +88,9 @@ defmodule Gutenex.PDF.Builders.ImageBuilder do
 
   # PNGs with color type 2 have no extra object
   # returns the render_context
-  defp add_image_extra_object(render_context, %Imagineer.Image.PNG{color_type: 2}) do
+  defp add_image_extra_object(render_context, %Imagineer.Image.PNG{
+         color_type: 2
+       }) do
     render_context
   end
 

@@ -40,7 +40,8 @@ defmodule Gutenex.PDF.RenderContextTest do
     }
 
     assert RenderContext.current_object(render_context) ==
-             {:obj, render_context.current_index, render_context.generation_number}
+             {:obj, render_context.current_index,
+              render_context.generation_number}
   end
 
   test "#current_reference returns a :ptr with the current index and generation number" do
@@ -50,7 +51,8 @@ defmodule Gutenex.PDF.RenderContextTest do
     }
 
     assert RenderContext.current_reference(render_context) ==
-             {:ptr, render_context.current_index, render_context.generation_number}
+             {:ptr, render_context.current_index,
+              render_context.generation_number}
   end
 
   test "#objects returns all of the objects, sorted by object index" do
@@ -64,7 +66,10 @@ defmodule Gutenex.PDF.RenderContextTest do
         {{:obj, 5, 0}, {:stream, %{}, ""}},
         {{:obj, 6, 0}, {:stream, %{}, ""}}
       ],
-      font_objects: [{{:obj, 8, 0}, {:ptr, 1000, 0}}, {{:obj, 10, 0}, {:ptr, 1001, 0}}],
+      font_objects: [
+        {{:obj, 8, 0}, {:ptr, 1000, 0}},
+        {{:obj, 10, 0}, {:ptr, 1001, 0}}
+      ],
       page_objects: [
         {{:obj, 9, 0}, {:ptr, 31, 0}},
         {{:obj, 12, 0}, {:ptr, 29, 0}},

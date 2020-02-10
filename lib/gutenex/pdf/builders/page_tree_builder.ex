@@ -36,7 +36,8 @@ defmodule Gutenex.PDF.Builders.PageTreeBuilder do
     %RenderContext{
       RenderContext.next_index(render_context)
       | x_object_dictionary: x_object_dictionary(render_context),
-        x_object_dictionary_reference: RenderContext.current_reference(render_context)
+        x_object_dictionary_reference:
+          RenderContext.current_reference(render_context)
     }
   end
 

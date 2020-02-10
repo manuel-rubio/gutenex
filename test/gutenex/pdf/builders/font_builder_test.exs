@@ -31,7 +31,10 @@ defmodule Gutenex.PDF.Builders.FontBuilderTest do
            }
   end
 
-  test "#build adds the font objects", %{context: context, render_context: render_context} do
+  test "#build adds the font objects", %{
+    context: context,
+    render_context: render_context
+  } do
     assert render_context.font_objects == [
              {{:obj, 100, 47}, {:dict, Map.get(context.fonts, "Abra")}},
              {{:obj, 101, 47}, {:dict, Map.get(context.fonts, "Barbara")}},

@@ -1,5 +1,10 @@
 defmodule Gutenex.PDF.Page do
-  def to_pdf(parent_reference, contents_reference, generation_number, options \\ %{}) do
+  def to_pdf(
+        parent_reference,
+        contents_reference,
+        generation_number,
+        options \\ %{}
+      ) do
     {
       :dict,
       [

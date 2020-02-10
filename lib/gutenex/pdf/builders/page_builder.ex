@@ -24,7 +24,9 @@ defmodule Gutenex.PDF.Builders.PageBuilder do
     }
   end
 
-  defp build_pages(render_context, [page | pages_left_to_build], [template | templates]) do
+  defp build_pages(render_context, [page | pages_left_to_build], [
+         template | templates
+       ]) do
     render_context =
       add_page(render_context, page)
       |> add_page_summary(template)
@@ -33,7 +35,10 @@ defmodule Gutenex.PDF.Builders.PageBuilder do
     build_pages(render_context, pages_left_to_build, templates)
   end
 
-  defp add_page(%RenderContext{page_objects: page_objects} = render_context, page) do
+  defp add_page(
+         %RenderContext{page_objects: page_objects} = render_context,
+         page
+       ) do
     %RenderContext{
       RenderContext.next_index(render_context)
       | page_objects: [page_object(render_context, page) | page_objects]
@@ -50,8 +55,12 @@ defmodule Gutenex.PDF.Builders.PageBuilder do
   defp add_page_summary(%RenderContext{} = render_context, template) do
     %RenderContext{
       RenderContext.next_index(render_context)
-      | page_objects: [page_summary(render_context, template) | render_context.page_objects],
-        page_references: [page_reference(render_context) | render_context.page_references]
+      | page_objects: [
+          page_summary(render_context, template) | render_context.page_objects
+        ],
+        page_references: [
+          page_reference(render_context) | render_context.page_references
+        ]
     }
   end
 
@@ -63,7 +72,9 @@ defmodule Gutenex.PDF.Builders.PageBuilder do
        %{
          "Type" => {:name, "Page"},
          "Parent" => render_context.page_tree_reference,
-         "Contents" => {:ptr, render_context.current_index - 1, render_context.generation_number},
+         "Contents" =>
+           {:ptr, render_context.current_index - 1,
+            render_context.generation_number},
          "TemplateInstantiated" => {:name, template}
        }}
     }

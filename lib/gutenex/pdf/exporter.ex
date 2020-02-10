@@ -9,7 +9,10 @@ defmodule Gutenex.PDF.Exporter do
 
   def export(%RenderContext{} = render_context) do
     serialized_objects =
-      Enum.map(RenderContext.objects(render_context), &Serialization.serialize/1)
+      Enum.map(
+        RenderContext.objects(render_context),
+        &Serialization.serialize/1
+      )
 
     @start_mark <>
       Enum.join(serialized_objects) <>
@@ -32,7 +35,9 @@ defmodule Gutenex.PDF.Exporter do
 
   def cross_reference_table(serialized_objects) do
     pdf_start_position = String.length(@start_mark)
-    {xrefs, _acc} = :lists.mapfoldl(&xref/2, pdf_start_position, serialized_objects)
+
+    {xrefs, _acc} =
+      :lists.mapfoldl(&xref/2, pdf_start_position, serialized_objects)
 
     """
     xref
@@ -43,7 +48,8 @@ defmodule Gutenex.PDF.Exporter do
 
   def start_cross_reference(serialized_objects) do
     total_length =
-      Enum.reduce(serialized_objects, String.length(@start_mark), fn object, total ->
+      Enum.reduce(serialized_objects, String.length(@start_mark), fn object,
+                                                                     total ->
         String.length(object) + total
       end)
 

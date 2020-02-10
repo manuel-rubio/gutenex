@@ -32,7 +32,10 @@ defmodule Gutenex.PDF.RenderContext do
   has been incremented by one
   """
   def next_index(%__MODULE__{} = render_context) do
-    %__MODULE__{render_context | current_index: render_context.current_index + 1}
+    %__MODULE__{
+      render_context
+      | current_index: render_context.current_index + 1
+    }
   end
 
   @doc """

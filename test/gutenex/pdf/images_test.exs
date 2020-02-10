@@ -5,7 +5,9 @@ defmodule Gutenex.PDF.ImagesTest do
   test "#set_image" do
     aliaz = "Image1000"
     image = %Imagineer.Image.PNG{width: 237, height: 191}
-    assert Images.set_image(aliaz, image) == "q\n237 0 0 191 0 0 cm\n/#{aliaz} Do\nQ\n"
+
+    assert Images.set_image(aliaz, image) ==
+             "q\n237 0 0 191 0 0 cm\n/#{aliaz} Do\nQ\n"
   end
 
   test "#set_image with a custom width and height" do

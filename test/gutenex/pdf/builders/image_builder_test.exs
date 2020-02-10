@@ -22,7 +22,12 @@ defmodule Gutenex.PDF.Builders.ImageBuilderTest do
               "BitsPerComponent" => 8,
               "DecodeParams" =>
                 {:dict,
-                 %{"Predictor" => 15, "Colors" => 3, "BitsPerComponent" => 8, "Columns" => 96}},
+                 %{
+                   "Predictor" => 15,
+                   "Colors" => 3,
+                   "BitsPerComponent" => 8,
+                   "Columns" => 96
+                 }},
               "ColorSpace" => {:name, "DeviceRGB"}
             }}, Imagineer.Image.PNG.to_binary(image)}},
          []
@@ -36,7 +41,9 @@ defmodule Gutenex.PDF.Builders.ImageBuilderTest do
     {_obj_count, [raw_x_object, []]} = x_object
 
     {new_render_context, ^context} =
-      ImageBuilder.build({%RenderContext{current_index: 100, generation_number: 30}, context})
+      ImageBuilder.build(
+        {%RenderContext{current_index: 100, generation_number: 30}, context}
+      )
 
     assert new_render_context.current_index == 101
     assert new_render_context.image_objects == [raw_x_object]

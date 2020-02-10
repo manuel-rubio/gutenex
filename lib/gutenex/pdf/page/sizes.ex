@@ -1,7 +1,8 @@
-defmodule Gutenex.PDF.Page.PageSizes do
+defmodule Gutenex.PDF.Page.Sizes do
   def page_size(width, height) when is_integer(width) and is_integer(height) do
     {0, 0, width, height}
   end
+
   def page_size(:a0), do: page_size(2380, 3368)
   def page_size(:a1), do: page_size(1684, 2380)
   def page_size(:a2), do: page_size(1190, 1684)

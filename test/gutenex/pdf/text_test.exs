@@ -17,8 +17,11 @@ defmodule Gutenex.PDF.TextTest do
   test "#write_text" do
     assert Text.write_text("Bananas") == "(Bananas) Tj\n"
 
-    assert Text.write_text("(Bananas)") == "(\\(Bananas\\)) Tj\n", "it escapes parenthesis"
-    assert Text.write_text("\\Bananas") == "(\\\\Bananas) Tj\n", "it escapes backslashes"
+    assert Text.write_text("(Bananas)") == "(\\(Bananas\\)) Tj\n",
+           "it escapes parenthesis"
+
+    assert Text.write_text("\\Bananas") == "(\\\\Bananas) Tj\n",
+           "it escapes backslashes"
   end
 
   test "#write_text_br" do
