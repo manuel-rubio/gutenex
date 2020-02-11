@@ -42,7 +42,7 @@ defmodule Gutenex.PDF.Exporter do
     """
     xref
     0 #{length(serialized_objects) + 1}
-    #{xref1(0, "65535 f")}#{xrefs}
+    #{xref_output(0, "65535 f")}#{xrefs}
     """
   end
 
