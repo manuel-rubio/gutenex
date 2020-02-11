@@ -47,7 +47,7 @@ defmodule Gutenex.PDF.Builders.ImageBuilder do
     }
   end
 
-  defp image_stream_data(%Imagineer.Image.PNG{} = image) do
+  def image_stream_data(%Imagineer.Image.PNG{} = image) do
     Imagineer.Image.PNG.Pixels.NoInterlace.encode(image)
     |> Enum.join()
     |> compress_image_data

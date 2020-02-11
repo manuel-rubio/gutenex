@@ -1,6 +1,5 @@
 defmodule Gutenex.PDF.PageTreeBuilderTest do
   use ExUnit.Case, async: true
-  alias Gutenex.PDF.Page
   alias Gutenex.PDF.Page.Sizes
   alias Gutenex.PDF.Context
   alias Gutenex.PDF.RenderContext

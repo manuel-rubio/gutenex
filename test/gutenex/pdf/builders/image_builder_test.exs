@@ -29,7 +29,7 @@ defmodule Gutenex.PDF.Builders.ImageBuilderTest do
                    "Columns" => 96
                  }},
               "ColorSpace" => {:name, "DeviceRGB"}
-            }}, Imagineer.Image.PNG.to_binary(image)}},
+            }}, ImageBuilder.image_stream_data(image)}},
          []
        ]}
 
