@@ -37,7 +37,7 @@ defmodule Gutenex.PDF.Exporter do
     pdf_start_position = String.length(@start_mark)
 
     {xrefs, _acc} =
-      :lists.mapfoldl(&xref/2, pdf_start_position, serialized_objects)
+      Enum.map_reduce(serialized_objects, pdf_start_position, &xref/2)
 
     """
     xref
@@ -48,10 +48,10 @@ defmodule Gutenex.PDF.Exporter do
 
   def start_cross_reference(serialized_objects) do
     total_length =
-      Enum.reduce(serialized_objects, String.length(@start_mark), fn object,
-                                                                     total ->
-        String.length(object) + total
-      end)
+      Enum.reduce(
+        serialized_objects,
+        String.length(@start_mark),
+        &(String.length(&1) + &2))
 
     """
     startxref
@@ -61,10 +61,10 @@ defmodule Gutenex.PDF.Exporter do
 
   def xref(serialized_objects, position) do
     objects_length = String.length(serialized_objects)
-    {xref1(position, "00000 n"), position + objects_length}
+    {xref_output(position), position + objects_length}
   end
 
-  def xref1(position, string) do
+  def xref_output(position, string \\ "00000 n") do
     :io_lib.format("~10.10.0w ~s \n", [position, string])
   end
 end
